@@ -8,7 +8,7 @@ import Counter from '../Counter.js'
 import ExpandContract from '../circle/circle';
 import FiveByFive from '../FivebyFive/fiveByFive';
 const App = function () {
-  const [selected, setSelected] = useState('box');
+  const [selected, setSelected] = useState('home');
   const [numberOfRounds,setNumberOfRounds] = useState(4)
   let exerciseSelector = function (event, exercise,rounds) {
 

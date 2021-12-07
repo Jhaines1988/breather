@@ -2,94 +2,79 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles.css';
 import { hot } from 'react-hot-loader/root';
+
 const ExpandContract = function (props) {
-  const [cycle, setCycle] = useState('grow');
-  console.log('hey', props);
+  const [cycle, setCycle] = useState(0);
+  const [roundsCompleted,setRoundsCompleted] = useState(1)
   const totalTime = 16000;
-  // const breatheTime = (totalTime / 5) * 2;
-  // const holdTime = totalTime / 5;
+  const rounds = Number(props.rounds);
   let totalReps = 0;
   const breatheTime = totalTime / 4;
   const holdTime = totalTime / 4;
   const containerRef = useRef();
-  var text = 'Breathe In';
-
-
+  const textRef = useRef();
+  const circleRef = useRef();
   const timer = function (callback) {
-    console.log('totalreps',totalReps)
-    // if (totalReps === 2) {
-    //   startAnimation();
-    //   return;
-    // }
-    let text = document.getElementById('text');
+    console.log('cycle', cycle);
+    let text = textRef.current;
     let container = containerRef.current;
-    let circle = document.getElementById('circle');
+    let circle = circleRef.current;
     text.innerText = 'Breathe In';
     container.className = 'container grow';
     circle.className = 'circle in';
-    var t = setTimeout(() => {
+
+    setTimeout(() => {
       text.innerText = 'Hold';
       circle.className = 'circle hold';
-      console.log('totalreps1',totalReps)
+
       setTimeout(() => {
-        console.log('totalreps2',totalReps)
         text.innerText = 'Breathe Out';
         container.className = 'container shrink';
         circle.className = 'circle out';
         setTimeout(() => {
-          console.log('totalreps3',totalReps)
           text.innerText = 'Hold';
           circle.className = 'circle holdout';
-          totalReps++;
+          setTimeout(() => {
+            setCycle(cycle + 1);
+            setRoundsCompleted(roundsCompleted+1)
+          }, holdTime);
         }, holdTime);
       }, holdTime);
     }, breatheTime);
   };
 
-
-  // useEffect(() => {
-  //   startAnimation();
-  // },[])
   useEffect(() => {
-    console.log('in effect')
-    timer()
-    // var int = setInterval(timer,totalTime)
-    var int = setInterval(() => {
-      timer
-    }, totalTime);
-    return () => {
-      console.log('incleanup')
-      // if (totalReps === 2) {
-      //   console.log('morethan2')
-      //   clearInterval(int);
-
-      // }
+    if (cycle < rounds) {
+      console.log('ineffect');
+      timer();
     }
+
+    return () => {
+      console.log('incleanup', cycle);
+
+      if (cycle === rounds - 1) {
+        console.log('what?', cycle);
+        let text = textRef.current;
+        text.innerText = 'Done';
+      }
+    };
   });
 
-  // const startAnimation = function () {
-  //   console.log('were in the function ');
-  //   if (totalReps === 2) {
-  //     clearInterval(interval);
-  //     return;
-  //   }
-  //   timer();
-  //   var interval = setInterval(timer, totalTime);
-  // };
-  const endAnimation = function () {};
+
   return (
     <div className='outer_container'>
-      <div className='text' id='text'>
-        {text}
-      </div>
+       Round:{roundsCompleted}
       <div className='container' id='container' ref={containerRef}>
-        <div id='circle' className='circle'></div>
+        <div id='circle' className='circle' ref={circleRef}></div>
 
-        <div className='pointer-container'>
+        {/* <div className='pointer-container'>
           <div className='pointer'></div>
-        </div>
-        <CountDown reps={totalReps} />
+        </div> */}
+        {/* <CountDown reps={totalReps} /> */}
 
+        <div className='text' id='text' ref={textRef}>
+          Breathe In
+        </div>
         <div className='gradient-circle'></div>
       </div>
     </div>
@@ -102,7 +87,6 @@ const CountDown = function (props) {
   useEffect(() => {
     if (counter < 5) {
       var time = setTimeout(() => {
-
         setCounter(counter + 1);
       }, 1000);
     } else {
@@ -115,12 +99,15 @@ const CountDown = function (props) {
       return;
     }
   }, [counter]);
-
-  return repetition < 2 ? (
-    <div className='counter'> {counter} </div>
-  ) : (
-    <div>Done</div>
-  );
+  return <div className='counter'> {counter} </div>;
+  // return repetition < 2 ? (
+  //   <div className='counter'> {counter} </div>
+  // ) : (
+  //   <div>Done</div>
+  // );
 };
 
-export default hot(ExpandContract);
+export default ExpandContract;
+
+// let circle = document.getElementById('circle');
+// let text = document.getElementById('text');
