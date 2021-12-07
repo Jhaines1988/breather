@@ -5,7 +5,6 @@ import './fiveByFive.styles.css';
 const FiveByFive = function (props) {
   const totalTime = 11000;
   const cycle = 5500;
-
   const timer = function () {
     let text = document.getElementById('text');
     let container = document.getElementById('container_five');
