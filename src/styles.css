@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+ body {
+  background: url('./forest.png') no-repeat center center/cover;
+   margin: 0;
+ }
