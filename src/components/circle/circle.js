@@ -5,7 +5,7 @@ import { hot } from 'react-hot-loader/root';
 
 const ExpandContract = function (props) {
   const [cycle, setCycle] = useState(0);
-  const [roundsCompleted,setRoundsCompleted] = useState(1)
+  const [roundsCompleted, setRoundsCompleted] = useState(1);
   const totalTime = 16000;
   const rounds = Number(props.rounds);
   let totalReps = 0;
@@ -36,7 +36,9 @@ const ExpandContract = function (props) {
           circle.className = 'circle holdout';
           setTimeout(() => {
             setCycle(cycle + 1);
-            setRoundsCompleted(roundsCompleted+1)
+            if (rounds > roundsCompleted) {
+              setRoundsCompleted(roundsCompleted + 1);
+            }
           }, holdTime);
         }, holdTime);
       }, holdTime);
@@ -45,25 +47,20 @@ const ExpandContract = function (props) {
 
   useEffect(() => {
     if (cycle < rounds) {
-      console.log('ineffect');
       timer();
     }
 
     return () => {
-      console.log('incleanup', cycle);
-
       if (cycle === rounds - 1) {
-        console.log('what?', cycle);
         let text = textRef.current;
-        text.innerText = 'Done';
+        text.innerText = 'Done!';
       }
     };
   });
 
-
   return (
     <div className='outer_container'>
-       Round:{roundsCompleted}
+      <span data-descr='Hello!' className='round'> Round:{roundsCompleted}</span>
       <div className='container' id='container' ref={containerRef}>
         <div id='circle' className='circle' ref={circleRef}></div>
 

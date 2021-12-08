@@ -11,6 +11,22 @@
    justify-content: center;
    margin: 0;
  }
+
+ span[data-descr]{
+   font-size: xx-large;
+   color:blue;
+ }
+ span[data-descr]:hover::after,
+ span[data-descr]:focus::after{
+   font-size: xx-large;
+   color:rgb(255, 0, 0);
+   content:attr(data-descr);
+ }
+ /* .round {
+  font-size: xxx-large;
+  color: red;
+  font-weight: 900;
+} */
    .container {
     display: flex;
     align-items: center;
@@ -131,7 +147,7 @@
     }
 
     to {
-      transform: scale(2.5);
+      transform: scale(3);
     }
   }
 
@@ -142,7 +158,7 @@
 
   @keyframes shrink {
     from {
-      transform: scale(2.5);
+      transform: scale(3);
     }
 
     to {
