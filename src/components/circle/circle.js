@@ -2,85 +2,96 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles.css';
 import { hot } from 'react-hot-loader/root';
-
+import _ from 'underscore';
+import roundDots from '../Helpers/roundDots';
 const ExpandContract = function (props) {
   const [cycle, setCycle] = useState(0);
-  const [roundsCompleted,setRoundsCompleted] = useState(1)
+  const [roundsCompleted, setRoundsCompleted] = useState(1);
   const totalTime = 16000;
   const rounds = Number(props.rounds);
-  let totalReps = 0;
+
   const breatheTime = totalTime / 4;
   const holdTime = totalTime / 4;
   const containerRef = useRef();
   const textRef = useRef();
   const circleRef = useRef();
+  const roundsRef = useRef();
   const timer = function (callback) {
-    console.log('cycle', cycle);
+    let roundsToggle = roundsRef.current.childNodes;
     let text = textRef.current;
     let container = containerRef.current;
     let circle = circleRef.current;
     text.innerText = 'Breathe In';
     container.className = 'container grow';
-    circle.className = 'circle in';
+
 
     setTimeout(() => {
       text.innerText = 'Hold';
-      circle.className = 'circle hold';
+
 
       setTimeout(() => {
         text.innerText = 'Breathe Out';
         container.className = 'container shrink';
-        circle.className = 'circle out';
+
         setTimeout(() => {
           text.innerText = 'Hold';
-          circle.className = 'circle holdout';
+
           setTimeout(() => {
             setCycle(cycle + 1);
-            setRoundsCompleted(roundsCompleted+1)
+            if (rounds > roundsCompleted) {
+              roundsToggle[cycle].className = 'dot completed';
+
+              setRoundsCompleted(roundsCompleted + 1);
+            }
           }, holdTime);
         }, holdTime);
       }, holdTime);
     }, breatheTime);
   };
 
+  const roundArray = roundDots(rounds);
+
   useEffect(() => {
     if (cycle < rounds) {
-      console.log('ineffect');
       timer();
     }
 
     return () => {
-      console.log('incleanup', cycle);
-
       if (cycle === rounds - 1) {
-        console.log('what?', cycle);
         let text = textRef.current;
-        text.innerText = 'Done';
+        text.innerText = 'Done!';
       }
     };
   });
 
-
   return (
-    <div className='outer_container'>
-       Round:{roundsCompleted}
-      <div className='container' id='container' ref={containerRef}>
-        <div id='circle' className='circle' ref={circleRef}></div>
 
-        {/* <div className='pointer-container'>
-          <div className='pointer'></div>
-        </div> */}
-        {/* <CountDown reps={totalReps} /> */}
+      <div className='outer_container'>
 
-        <div className='text' id='text' ref={textRef}>
-          Breathe In
+        <div className='container' id='container' ref={containerRef}>
+          <div id='circle' className='circle' ref={circleRef}></div>
+
+          <div className='gradient-circle'></div>
         </div>
-        <div className='gradient-circle'></div>
+
+        <div className='round-container' ref={roundsRef}>
+          {roundArray.map((rounds) => {
+            return <span key={rounds} id={rounds} className='dot'></span>;
+          })}
+        </div>
+        <div className='text' id='text' ref={textRef}>
+        Breathe In
       </div>
-    </div>
+      </div>
+
+
   );
 };
 
+export default ExpandContract;
+
+// let circle = document.getElementById('circle');
+// let text = document.getElementById('text');
 const CountDown = function (props) {
   const [repetition, setRepetition] = useState(0);
   const [counter, setCounter] = useState(1);
@@ -100,14 +111,5 @@ const CountDown = function (props) {
     }
   }, [counter]);
   return <div className='counter'> {counter} </div>;
-  // return repetition < 2 ? (
-  //   <div className='counter'> {counter} </div>
-  // ) : (
-  //   <div>Done</div>
-  // );
+
 };
-
-export default ExpandContract;
-
-// let circle = document.getElementById('circle');
-// let text = document.getElementById('text');

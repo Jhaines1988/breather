@@ -1,0 +1,49 @@
+.tooltip_container {
+    border: 10px solid black;
+    width: auto;
+    height: 40%;
+    align-self: center;
+    display:flex;
+    flex-direction: column;
+}
+
+li{
+  font-size:xx-large;
+}
+.tooltip .tooltiptext {
+    visibility: hidden;
+    width: auto;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    height: auto;
+    /* Position the tooltip */
+    position: absolute;
+    z-index: 1;
+    top: 10%;
+    font-size: large;
+    /* right: 15%; */
+    /* left: 15%; */
+  }
+
+
+
+.tooltip:hover .tooltiptext {
+    visibility: visible;
+  }
+
+
+
+/*
+
+
+.tooltip_container {
+    border: 2px solid black;
+    width: 50%;
+    height: 40%;
+    padding: 27px 36px 27px 48px;
+    margin: 20px 20px 20px 20px;
+    align-self: center;
+} */
