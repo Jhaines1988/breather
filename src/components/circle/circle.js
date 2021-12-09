@@ -3,12 +3,13 @@ import React, { useState, useEffect, useRef } from 'react';
 import './styles.css';
 import { hot } from 'react-hot-loader/root';
 import _ from 'underscore';
+import roundDots from '../Helpers/roundDots';
 const ExpandContract = function (props) {
   const [cycle, setCycle] = useState(0);
   const [roundsCompleted, setRoundsCompleted] = useState(1);
   const totalTime = 16000;
   const rounds = Number(props.rounds);
-  let totalReps = 0;
+
   const breatheTime = totalTime / 4;
   const holdTime = totalTime / 4;
   const containerRef = useRef();
@@ -17,26 +18,24 @@ const ExpandContract = function (props) {
   const roundsRef = useRef();
   const timer = function (callback) {
     let roundsToggle = roundsRef.current.childNodes;
-    console.log('cycle', roundsToggle[0]);
-
     let text = textRef.current;
     let container = containerRef.current;
     let circle = circleRef.current;
     text.innerText = 'Breathe In';
     container.className = 'container grow';
-    circle.className = 'circle in';
+    // circle.className = 'circle in';
 
     setTimeout(() => {
       text.innerText = 'Hold';
-      circle.className = 'circle hold';
+      // circle.className = 'circle hold';
 
       setTimeout(() => {
         text.innerText = 'Breathe Out';
         container.className = 'container shrink';
-        circle.className = 'circle out';
+        // circle.className = 'circle out';
         setTimeout(() => {
           text.innerText = 'Hold';
-          circle.className = 'circle holdout';
+          // circle.className = 'circle holdout';
           setTimeout(() => {
             setCycle(cycle + 1);
             if (rounds > roundsCompleted) {
@@ -49,17 +48,9 @@ const ExpandContract = function (props) {
       }, holdTime);
     }, breatheTime);
   };
-  const roundDots = function (numberOfRounds) {
-    let dotArr = [];
-    for (var i = 0; i < numberOfRounds; i++) {
-      dotArr.push(i + 1);
-    }
-    return dotArr;
-  };
 
   const roundArray = roundDots(rounds);
 
-  console.log('roundArr', roundArray);
   useEffect(() => {
     if (cycle < rounds) {
       timer();
@@ -74,26 +65,26 @@ const ExpandContract = function (props) {
   });
 
   return (
-    <div className='outer_container'>
-      <span data-descr='Hello!' className='round'>
-        {' '}
-        Round:{roundsCompleted}
-      </span>
-      <div className='container' id='container' ref={containerRef}>
-        <div id='circle' className='circle' ref={circleRef}></div>
 
+      <div className='outer_container'>
 
-        <div className='gradient-circle'></div>
-      </div>
-      <div className='text' id='text' ref={textRef}>
-          Breathe In
+        <div className='container' id='container' ref={containerRef}>
+          <div id='circle' className='circle' ref={circleRef}></div>
+
+          <div className='gradient-circle'></div>
         </div>
-      <div className='round-container' ref={roundsRef}>
-        {roundArray.map((rounds) => {
-          return <span key={rounds} id={rounds} className='dot'></span>;
-        })}
+
+        <div className='round-container' ref={roundsRef}>
+          {roundArray.map((rounds) => {
+            return <span key={rounds} id={rounds} className='dot'></span>;
+          })}
+        </div>
+        <div className='text' id='text' ref={textRef}>
+        Breathe In
       </div>
-    </div>
+      </div>
+
+
   );
 };
 
