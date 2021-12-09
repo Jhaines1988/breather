@@ -8,6 +8,7 @@
   background-image: url('./landscape.png');
   background-repeat: no-repeat;
   background-position: top center;
-  background-size: 135%;
+  /* background-size: 135%; */
+  background-size: cover;
    margin: 0;
  }

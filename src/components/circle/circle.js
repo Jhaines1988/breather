@@ -23,19 +23,19 @@ const ExpandContract = function (props) {
     let circle = circleRef.current;
     text.innerText = 'Breathe In';
     container.className = 'container grow';
-    // circle.className = 'circle in';
+
 
     setTimeout(() => {
       text.innerText = 'Hold';
-      // circle.className = 'circle hold';
+
 
       setTimeout(() => {
         text.innerText = 'Breathe Out';
         container.className = 'container shrink';
-        // circle.className = 'circle out';
+
         setTimeout(() => {
           text.innerText = 'Hold';
-          // circle.className = 'circle holdout';
+
           setTimeout(() => {
             setCycle(cycle + 1);
             if (rounds > roundsCompleted) {
@@ -111,9 +111,5 @@ const CountDown = function (props) {
     }
   }, [counter]);
   return <div className='counter'> {counter} </div>;
-  // return repetition < 2 ? (
-  //   <div className='counter'> {counter} </div>
-  // ) : (
-  //   <div>Done</div>
-  // );
+
 };

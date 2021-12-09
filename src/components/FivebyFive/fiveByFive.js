@@ -20,10 +20,10 @@ const FiveByFive = function (props) {
     let roundsToggle = roundsRef.current.childNodes;
     text.innerText = 'Breathe In';
     container.className = 'container_five grow';
-    circle.className = 'circle_five in';
+
     setTimeout(() => {
       text.innerText = 'Breathe Out';
-      circle.className = 'circle_five out';
+
       container.className = 'container_five shrink';
       setTimeout(() => {
         setCycle(cycle + 1);
@@ -36,9 +36,7 @@ const FiveByFive = function (props) {
   };
 
   const roundArray = roundDots(rounds);
-  // useEffect(() => {
-  //   startAnimation();
-  // });
+
   useEffect(() => {
     if (cycle < rounds) {
       timer();
@@ -51,26 +49,19 @@ const FiveByFive = function (props) {
       }
     };
   });
-  const startAnimation = function () {
-    timer();
-    setInterval(timer, totalTime);
-  };
+
   return (
     <div className='outer_container_five'>
-      <div id='text' className='text_five' ref={textRef}></div>
       <div className='container_five' id='container_five' ref={containerRef}>
         <div className='circle_five' id='circle_five' ref={circleRef}></div>
-        <div className='pointer-container_five'>
-          <div className='pointer_five'></div>
-        </div>
-        <div className='round-container' ref={roundsRef}>
-          {roundArray.map((rounds) => {
-            return <span key={rounds} id={rounds} className='dot_5'></span>;
-          })}
-        </div>
-        {/* <CountDown /> */}
         <div className='gradient-circle_five'></div>
       </div>
+      <div className='round-container_5' ref={roundsRef}>
+        {roundArray.map((rounds) => {
+          return <span key={rounds} id={rounds} className='dot_5'></span>;
+        })}
+      </div>
+      <div id='text' className='text_five' ref={textRef}></div>
     </div>
   );
 };
@@ -88,19 +79,18 @@ const CountDown = function () {
   return <div className='counter_5'> {counter} </div>;
 };
 
-
 export default FiveByFive;
- /* span[data-descr]{
+/* span[data-descr]{
    font-size: xx-large;
    color:blue;
  } */
- /* span[data-descr]:hover::after,
+/* span[data-descr]:hover::after,
  span[data-descr]:focus::after{
    font-size: xx-large;
    color:rgb(255, 0, 0);
    content:attr(data-descr);
  } */
- /* .round {
+/* .round {
   font-size: xxx-large;
   color: red;
   font-weight: 900;
