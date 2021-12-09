@@ -10,7 +10,7 @@ import ExpandContract from '../circle/circle';
 import FiveByFive from '../FivebyFive/fiveByFive';
 import Tooltips from '../Tooltips/tooltips';
 const App = function () {
-  const [selected, setSelected] = useState('home');
+  const [selected, setSelected] = useState('s');
   const [numberOfRounds,setNumberOfRounds] = useState(4)
   let exerciseSelector = function (event, exercise,rounds) {
 

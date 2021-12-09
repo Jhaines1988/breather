@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React, { useState, useEffect } from 'react';
-
+import _ from 'underscore'
 import './fiveByFive.styles.css';
 const FiveByFive = function (props) {
   const totalTime = 11000;
@@ -45,12 +45,17 @@ const FiveByFive = function (props) {
 const CountDown = function () {
   const [counter, setCounter] = useState(1);
   useEffect(() => {
-    if (counter <= 5) {
+    if (counter <5 ) {
       setTimeout(() => setCounter(counter + 1), 1000);
-    } else if (counter > 5) {
-        setCounter(5.5)
-        setTimeout(()=>setCounter(1),500);
+    }else {
+      setTimeout(()=>setCounter(1),1500);
     }
+
+
+    // else if (counter === 5) {
+    //     // setCounter(5.5)
+    //     setTimeout(()=>setCounter(1),500);
+    // }
 
 
     // else {

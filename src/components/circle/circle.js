@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './styles.css';
 import { hot } from 'react-hot-loader/root';
-
+import _ from 'underscore';
 const ExpandContract = function (props) {
   const [cycle, setCycle] = useState(0);
   const [roundsCompleted, setRoundsCompleted] = useState(1);
@@ -14,8 +14,11 @@ const ExpandContract = function (props) {
   const containerRef = useRef();
   const textRef = useRef();
   const circleRef = useRef();
+  const roundsRef = useRef();
   const timer = function (callback) {
-    console.log('cycle', cycle);
+    let roundsToggle = roundsRef.current.childNodes;
+    console.log('cycle', roundsToggle[0]);
+
     let text = textRef.current;
     let container = containerRef.current;
     let circle = circleRef.current;
@@ -37,6 +40,8 @@ const ExpandContract = function (props) {
           setTimeout(() => {
             setCycle(cycle + 1);
             if (rounds > roundsCompleted) {
+              roundsToggle[cycle].className = 'dot completed';
+
               setRoundsCompleted(roundsCompleted + 1);
             }
           }, holdTime);
@@ -44,7 +49,17 @@ const ExpandContract = function (props) {
       }, holdTime);
     }, breatheTime);
   };
+  const roundDots = function (numberOfRounds) {
+    let dotArr = [];
+    for (var i = 0; i < numberOfRounds; i++) {
+      dotArr.push(i + 1);
+    }
+    return dotArr;
+  };
 
+  const roundArray = roundDots(rounds);
+
+  console.log('roundArr', roundArray);
   useEffect(() => {
     if (cycle < rounds) {
       timer();
@@ -60,24 +75,32 @@ const ExpandContract = function (props) {
 
   return (
     <div className='outer_container'>
-      <span data-descr='Hello!' className='round'> Round:{roundsCompleted}</span>
+      <span data-descr='Hello!' className='round'>
+        {' '}
+        Round:{roundsCompleted}
+      </span>
       <div className='container' id='container' ref={containerRef}>
         <div id='circle' className='circle' ref={circleRef}></div>
 
-        {/* <div className='pointer-container'>
-          <div className='pointer'></div>
-        </div> */}
-        {/* <CountDown reps={totalReps} /> */}
 
-        <div className='text' id='text' ref={textRef}>
+        <div className='gradient-circle'></div>
+      </div>
+      <div className='text' id='text' ref={textRef}>
           Breathe In
         </div>
-        <div className='gradient-circle'></div>
+      <div className='round-container' ref={roundsRef}>
+        {roundArray.map((rounds) => {
+          return <span key={rounds} id={rounds} className='dot'></span>;
+        })}
       </div>
     </div>
   );
 };
 
+export default ExpandContract;
+
+// let circle = document.getElementById('circle');
+// let text = document.getElementById('text');
 const CountDown = function (props) {
   const [repetition, setRepetition] = useState(0);
   const [counter, setCounter] = useState(1);
@@ -103,8 +126,3 @@ const CountDown = function (props) {
   //   <div>Done</div>
   // );
 };
-
-export default ExpandContract;
-
-// let circle = document.getElementById('circle');
-// let text = document.getElementById('text');

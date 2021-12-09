@@ -7,19 +7,25 @@
     flex-direction: column;
 }
 
-
+li{
+  font-size:xx-large;
+}
 .tooltip .tooltiptext {
     visibility: hidden;
-    width: 120px;
+    width: auto;
     background-color: black;
     color: #fff;
     text-align: center;
     border-radius: 6px;
     padding: 5px 0;
-
+    height: auto;
     /* Position the tooltip */
     position: absolute;
     z-index: 1;
+    top: 10%;
+    font-size: large;
+    /* right: 15%; */
+    /* left: 15%; */
   }
 
 
@@ -29,9 +35,7 @@
   }
 
 
-li{
-    font-size: xx-large;
-}
+
 /*
 
 
