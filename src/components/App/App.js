@@ -48,7 +48,7 @@ const App = function () {
     </>
   ) : (
     <>
-      <FiveByFive rounds={numberOfRounds} />
+      <FiveByFive exercise={selected}rounds={numberOfRounds} />
     </>
   );
 };

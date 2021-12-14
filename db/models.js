@@ -11,7 +11,7 @@ const user = new Schema({
     // fiveByFive:Number,
     email:String,
     password:String,
-    history:[{type:Schema.Types.ObjectId, ref:'History'}]
+    history:[{type:Schema.Types.ObjectId, ref:'History',required:true}]
 })
 
 

@@ -29,8 +29,7 @@ const Home = (props) => {
         <label>Choose Your Exercise</label>
         <select value={selectedExercise} onChange={changeSelectorHandler}>
           <option value='box'>Box Breathing 4x4</option>
-          <option value='circle'>Circular Breathing 5X5</option>
-          <option value='fast'>Rapid Breathing + hold</option>
+          <option value='5X5'>Circular Breathing 5X5</option>
         </select>
         <label> Number of Rounds </label>
         <select ref={rounds}>

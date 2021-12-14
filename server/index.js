@@ -22,6 +22,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 //   res.send('hey');
 // });
 app.post('/login',addUser)
+app.post('/completedExercise',(req,res,next)=>{
+
+  console.log('req',req.body)
+res.send('ok')
+})
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
