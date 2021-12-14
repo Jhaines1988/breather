@@ -3,12 +3,14 @@ import React, { useState, useEffect, useRef } from 'react';
 import _ from 'underscore';
 import './fiveByFive.styles.css';
 import roundDots from '../Helpers/roundDots';
+import Axios from 'axios';
 const FiveByFive = function (props) {
   const [cycle, setCycle] = useState(0);
   const [roundsCompleted, setRoundsCompleted] = useState(1);
   const totalTime = 11000;
   const breatheTime = 5500;
-  const rounds = props.rounds;
+  const rounds = Number(props.rounds);
+
   const containerRef = useRef();
   const textRef = useRef();
   const circleRef = useRef();
@@ -46,6 +48,18 @@ const FiveByFive = function (props) {
       if (cycle === rounds - 1) {
         let text = textRef.current;
         text.innerText = 'Done!';
+
+
+      }
+      if (roundsCompleted === rounds) {
+        let body ={user:'',rounds,exercise:props.exercise}
+        Axios.post('http://localhost:3000/completedExercise', body)
+          .then((results) => {
+            console.log('res', results.data);
+          })
+          .catch((err) => {
+            console.log('error');
+          });
       }
     };
   });
